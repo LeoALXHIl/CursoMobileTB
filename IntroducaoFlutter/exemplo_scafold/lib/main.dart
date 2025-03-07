@@ -14,40 +14,44 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("exemplo appBar"),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         // corpo do aplicativo
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(Icons.star),
-                Icon(Icons.star),
-                Icon(Icons.star),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(Icons.favorite),
-                Icon(Icons.favorite),
-                Icon(Icons.favorite),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(Icons.thumb_up),
-                Icon(Icons.thumb_up),
-                Icon(Icons.thumb_up),
-              ],
-            ),
-          ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Stack(alignment:Alignment.center,children: [Container(width: 200,height: 200,
+                  color: Colors.red),
+                  Icon(Icons.tiktok)],),
+                  Icon(Icons.star),
+                  Icon(Icons.star),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.tiktok),
+                  Icon(Icons.favorite),
+                  Icon(Icons.favorite),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.thumb_up),
+                  Icon(Icons.thumb_up),
+                  Icon(Icons.thumb_up),
+                ],
+              ),
+            ],
+          ),
         ),
         // barra de navegação inferior
         bottomNavigationBar: BottomNavigationBar(
