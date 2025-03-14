@@ -66,15 +66,15 @@ class MyApp extends StatelessWidget {
                   Container(
                     width: 120,
                     height: 120,
-                    margin: EdgeInsets.all(10), // Margem externa de 20 pixels
-                    padding: EdgeInsets.all(5), // Espaçamento interno de 10 pixels
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(5), 
                     decoration: BoxDecoration(
                       color: Colors.orange,
                       borderRadius: BorderRadius.circular(10), // Bordas arredondadas
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black26,
-                          blurRadius: 5, // Efeito de sombra
+                          blurRadius: 5, 
                           spreadRadius: 2,
                         ),
                       ],
@@ -86,15 +86,15 @@ class MyApp extends StatelessWidget {
                   Container(
                     width: 120,
                     height: 120,
-                    margin: EdgeInsets.all(10), // Margem externa de 20 pixels
-                    padding: EdgeInsets.all(5), // Espaçamento interno de 10 pixels
+                    margin: EdgeInsets.all(10), 
+                    padding: EdgeInsets.all(5), 
                     decoration: BoxDecoration(
                       color: Colors.orange,
-                      borderRadius: BorderRadius.circular(10), // Bordas arredondadas
+                      borderRadius: BorderRadius.circular(10), 
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black26,
-                          blurRadius: 5, // Efeito de sombra
+                          blurRadius: 5, 
                           spreadRadius: 2,
                         ),
                       ],
