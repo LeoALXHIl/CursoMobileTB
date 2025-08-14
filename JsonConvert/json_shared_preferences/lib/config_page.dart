@@ -1,31 +1,36 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ConfigPage extends StatefulWidget{
+
+class ConfigPage extends StatefulWidget {
   //atributos
   final bool temaEscuro;
   final String nomeUsuario;
   final Function(bool, String) onSalvar;
 
+
   //construtor
   ConfigPage({
-    required this.temaEscuro, required this.nomeUsuario, required this.onSalvar
+    required this.temaEscuro,
+    required this.nomeUsuario,
+    required this.onSalvar,
   });
-  
+
   @override
   State<StatefulWidget> createState() {
     return _ConfigPageState();
   }
 }
 
-class _ConfigPageState extends State<ConfigPage>{
+
+class _ConfigPageState extends State<ConfigPage> {
   //atributos
-  // ldate inicialmente null vai rreceber o valor depois
+  //late -> inicalmetne null -> vai receber o valor depois
   late bool _temaEscuro;
-  //campos de formularios
+  //campos de Formulários
   late TextEditingController _nomeController;
+
 
   @override
   void initState() {
@@ -35,59 +40,65 @@ class _ConfigPageState extends State<ConfigPage>{
     _nomeController = TextEditingController(text: widget.nomeUsuario);
   }
 
-  //metodo para salvaer as configuraçoes do usuario 
-  void salvarConfiguracoes() async{
-    Map<String,dynamic> config = {
+  // método para salvar as configuraç~eos do usuário
+  void salvarConfiguracoes() async {
+    Map<String, dynamic> config = {
       "temaEscuro": _temaEscuro,
-      "nome": _nomeController.text.trim()
+      "nome": _nomeController.text.trim(),
     };
-    // chama o shared preferences e converte o map para string/json, salva o valor no shared preferences
+    // chama o Shared Preferences
+    // Converte a MAP => String/Json
+    // Salva o Valor no SharedPreferences para a chave "config"
     final prefs = await SharedPreferences.getInstance();
-    String jsonString = jsonEncode(config);
+    String jsonString = json.encode(config);
     prefs.setString("config", jsonString);
 
-    //função chama a atualização
-    widget.onSalvar(_temaEscuro,_nomeController.text.trim());
+    // CHAMA A ATUALIZAÇÃO
+    widget.onSalvar(_temaEscuro, _nomeController.text.trim());
   }
 
-  // Construção dos widgets
+  
+  //construção dos Widgets
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Preferencias do Usuario"),),
-      body: Padding(padding: EdgeInsets.all(16),
-      child: Column(
-        children: [
-          SwitchListTile(
-            title: Text("Tema Escuro"),
-            value: _temaEscuro,
-           onChanged: (bool value){
+      appBar: AppBar(title: Text("Preferências do Usuário")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            SwitchListTile(
+              title: Text("Tema Escuro"),
+              value: _temaEscuro,
+              onChanged: (bool value) {
                 setState(() {
                   _temaEscuro = value;
                 });
-              }),
-              TextField(
-                controller: _nomeController,
-                decoration: InputDecoration(labelText: "Nome do Usuario"),
-              ),
-              SizedBox(height: 20,),
+              },
+            ),
+            TextField(
+              controller: _nomeController,
+              decoration: InputDecoration(labelText: "Nome do Usuário"),
+            ),
+            SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () async{
+              onPressed: () async {
                 salvarConfiguracoes();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Preferências salvas")));
-
-              }, 
-              child: Text("Salvar Preferencias")),
-              SizedBox(height: 40),
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("Preferências salvas")));
+              },
+              child: Text("Salvar Preferências"),
+            ),
+            SizedBox(height: 40),
             Divider(),
             Text(
               "Resumo Atual:",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10,),
-            Text("tema: ${_temaEscuro ? "Escuro" : "claro"}"),
-            Text("Usuario: ${_nomeController.text}"),
+            Text("Tema: ${_temaEscuro ? "Escuro" : "Claro"}"),
+            Text("Usuário: ${_nomeController.text}")
           ],
         ),
       ),
