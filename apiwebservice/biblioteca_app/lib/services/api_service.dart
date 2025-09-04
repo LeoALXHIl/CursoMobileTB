@@ -27,7 +27,7 @@ class ApiService {
   static Future<Map<String,dynamic>> post(String path, Map<String,dynamic> body) async{
     final res = await http.post(
       Uri.parse("$_baseURL/$path"),
-      headers: {"Content-Type": "applciation/json"},
+      headers: {"Content-Type": "application/json"},
       body: json.encode(body)
     );
     if (res.statusCode == 201) return json.decode(res.body);
@@ -38,10 +38,10 @@ class ApiService {
   static Future<Map<String,dynamic>> put(String path, Map<String,dynamic> body, String id) async{
     final res = await http.put(
       Uri.parse("$_baseURL/$path/$id"),
-      headers: {"Content-Type": "applciation/json"},
+      headers: {"Content-Type": "application/json"},
       body: json.encode(body)
     );
-    if (res.statusCode == 201) return json.decode(res.body);
+    if (res.statusCode == 200 || res.statusCode == 201) return json.decode(res.body);
     throw Exception("Falha ao Atualizar em $path");
   }
 

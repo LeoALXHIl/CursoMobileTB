@@ -3,29 +3,34 @@ class BookModel {
   final String? id;
   final String title;
   final String author;
-  final bool avaliable;
+  final bool available;
 
   //construtor
   BookModel({
     this.id,
     required this.title,
     required this.author,
-    required this.avaliable
+    required this.available
   });
 
   // métodos ToMap e FromMap
-  Map<String,dynamic> toMap() =>{
-    "id":id,
-    "title":title,
-    "author":author,
-    "avaliable":avaliable
-  };
+  Map<String,dynamic> toMap() {
+    final Map<String, dynamic> data = {
+      "title": title,
+      "author": author,
+      "available": available
+    };
+    if (id != null) {
+      data["id"] = id;
+    }
+    return data;
+  }
 
-  factory BookModel.fromMap(Map<String,dynamic> map)=> 
+  factory BookModel.fromMap(Map<String,dynamic> map)=>
   BookModel(
-    id: map["id"].toString(),
-    title: map["title"].toString(), 
-    author: map["author"].toString(), 
-    avaliable: map["avaliable"] == true ? true : false);
+    id: map["id"]?.toString(),
+    title: map["title"]?.toString() ?? '',
+    author: map["author"]?.toString() ?? '',
+    available: map["available"] == true || map["avaliable"] == true);
 
 }

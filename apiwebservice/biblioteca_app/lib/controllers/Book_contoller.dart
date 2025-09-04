@@ -35,19 +35,7 @@ class BookController {
   }
 
   Future<void> delete(String id) async{
-    await ApiService.delete("Books", id);
+    await ApiService.delete("books", id);
     // Não há retorno, usuário deletado com sucesso
   }
-
 }
-
-  // Atualizar livro
-  Future<BookModel> update(BookModel book) async {
-    final updated = await ApiService.put("books", book.toMap(), book.id!);
-    return BookModel.fromMap(updated);
-  }
-
-  // Deletar livro
-  Future<void> delete(String id) async {
-    await ApiService.delete("books", id);
-  }

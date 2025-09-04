@@ -2,6 +2,7 @@ import 'package:biblioteca_app/controllers/Book_contoller.dart';
 import 'package:biblioteca_app/models/books.dart';
 import 'package:biblioteca_app/views/book/book_form_view.dart';
 import 'package:biblioteca_app/views/loan/loan_form_view.dart';
+import 'package:biblioteca_app/views/loan/loan_list_view.dart';
 import 'package:flutter/material.dart';
 
 class BookListView extends StatefulWidget {
@@ -28,7 +29,7 @@ class _BookListViewState extends State<BookListView> {
         setState(() => _loading = true);
         try {
             _books = await _controller.fetchAll();
-            _filteredBooks = _books.where((book) => book.avaliable == true).toList();
+            _filteredBooks = _books.where((book) => book.available == true).toList();
         } catch (e) {
             // tratar erro aqui
         }
@@ -100,6 +101,16 @@ class _BookListViewState extends State<BookListView> {
                     IconButton(
                         icon: Icon(Icons.add),
                         onPressed: () => _openForm(),
+                    ),
+                    IconButton(
+                        icon: Icon(Icons.assignment_turned_in),
+                        tooltip: 'Ver Empréstimos',
+                        onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => LoanListView()),
+                            );
+                        },
                     ),
                 ],
             ),

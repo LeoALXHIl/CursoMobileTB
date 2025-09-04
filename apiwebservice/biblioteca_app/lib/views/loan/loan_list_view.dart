@@ -54,7 +54,7 @@ class _LoanListViewState extends State<LoanListView> {
   String _getBookTitle(String? bookId) {
     final book = _books.firstWhere(
       (b) => b.id == bookId,
-      orElse: () => BookModel(id: '', title: 'Desconhecido', author: '', avaliable: false),
+      orElse: () => BookModel(id: '', title: 'Desconhecido', author: '', available: false),
     );
     return book.title;
   }

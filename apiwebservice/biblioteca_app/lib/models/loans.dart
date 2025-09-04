@@ -17,23 +17,26 @@ class LoansModel {
 
   factory LoansModel.fromJson(Map<String, dynamic> json) {
     return LoansModel(
-      id: json['id'],
-      userId: json['userId'],
-      bookId: json['bookId'],
-      startDate: json['startDate'],
-      dueDate: json['dueDate'],
-      returned: json['returned'],
+      id: json['id']?.toString(),
+      userId: json['userId']?.toString(),
+      bookId: (json['booksId'] ?? json['bookId'])?.toString(),
+      startDate: json['startDate']?.toString() ?? '',
+      dueDate: json['dueDate']?.toString() ?? '',
+      returned: json['returned']?.toString() ?? '',
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
+    final Map<String, dynamic> data = {
       'userId': userId,
-      'bookId': bookId,
+      'booksId': bookId,
       'startDate': startDate,
       'dueDate': dueDate,
       'returned': returned,
     };
+    if (id != null) {
+      data['id'] = id;
+    }
+    return data;
   }
 }

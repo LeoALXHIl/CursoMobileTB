@@ -32,7 +32,7 @@ class _BookFormViewState extends State<BookFormView> {
             final book = BookModel(
                 id: widget.book?.id,
                 title: _titleController.text,
-                author: _authorController.text, avaliable: true,
+                author: _authorController.text, available: true,
             );
             await _controller.create(book);
             Navigator.pop(context);
@@ -48,7 +48,7 @@ class _BookFormViewState extends State<BookFormView> {
             final book = BookModel(
                 id: widget.book?.id,
                 title: _titleController.text,
-                author: _authorController.text, avaliable: widget.book?.avaliable ?? true,
+                author: _authorController.text, available: widget.book?.available ?? true,
             );
             await _controller.update(book);
             Navigator.pop(context);

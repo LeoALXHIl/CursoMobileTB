@@ -2,48 +2,126 @@
   "users": [
     {
       "id": "1",
-      "name": "joão Silv",
-      "email": "joão@email.com"
+      "name": "João Silva",
+      "email": "joao@email.com"
     },
     {
       "id": "2",
       "name": "Maria Souza",
-      "email": "Maria@email.com"
+      "email": "maria@email.com"
     },
     {
-      "id": null,
-      "name": "leonardo",
-      "email": "Leoaleuxo"
+      "id": "3",
+      "name": "Leonardo",
+      "email": "leonardo@email.com"
     }
   ],
   "books": [
     {
-      "id": "1",
-      "title": "O Guia do Mochileiro das Galáxias",
-      "author": "Douglas Adams",
-      "available": false
-    },
-    {
       "id": "2",
       "title": "Memórias Póstumas de Brás Cubas",
       "author": "Machado de Assis",
-      "available": true
+      "available": false
     },
     {
-      "id": null,
-      "title": "leo",
-      "author": "alx",
-      "avaliable": true
+      "title": "ioio",
+      "author": "gu",
+      "available": false,
+      "id": "0a73"
+    },
+    {
+      "title": "yuri ",
+      "author": "yuri22",
+      "available": false,
+      "id": "95e9"
+    },
+    {
+      "title": "snuff",
+      "author": "Corey Taylor ",
+      "available": false,
+      "id": "a004"
     }
   ],
   "loans": [
     {
       "id": "1",
-      "userId": 1,
-      "booksId": 1,
+      "userId": "1",
+      "bookId": null,
       "startDate": "2025-08-20",
       "dueDate": "2025-08-30",
-      "returned": false
+      "returned": "false"
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "bookId": "2",
+      "startDate": "2025-09-04",
+      "dueDate": "2025-09-11",
+      "returned": ""
+    },
+    {
+      "id": "3",
+      "userId": "2",
+      "bookId": "2",
+      "startDate": "2025-09-04",
+      "dueDate": "2025-09-11",
+      "returned": ""
+    },
+    {
+      "id": null,
+      "userId": "2",
+      "booksId": "2",
+      "startDate": "2025-09-04",
+      "dueDate": "2025-09-11",
+      "returned": ""
+    },
+    {
+      "id": 5,
+      "userId": "1",
+      "booksId": "1",
+      "startDate": "2025-09-04",
+      "dueDate": "2025-09-11",
+      "returned": "true"
+    },
+    {
+      "id": "b607",
+      "userId": "3",
+      "booksId": "3",
+      "startDate": "2025-09-04",
+      "dueDate": "2025-09-11",
+      "returned": ""
+    },
+    {
+      "id": "eb0c",
+      "userId": "3",
+      "booksId": "3",
+      "startDate": "2025-09-04",
+      "dueDate": "2025-09-11",
+      "returned": "true"
+    },
+    {
+      "id": "c7d6",
+      "userId": "3",
+      "booksId": "0a73",
+      "startDate": "2025-09-04",
+      "dueDate": "2025-09-11",
+      "returned": ""
+    },
+    {
+      "id": "1faa",
+      "userId": "2",
+      "booksId": "95e9",
+      "startDate": "2025-09-04",
+      "dueDate": "2025-09-11",
+      "returned": "true"
+    },
+    {
+      "id": "fa7d",
+      "userId": "3",
+      "booksId": "a004",
+      "startDate": "2025-09-04",
+      "dueDate": "2025-09-11",
+      "returned": "true"
     }
   ]
 }
