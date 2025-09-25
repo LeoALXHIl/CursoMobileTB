@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "191096450435",
+    "project_id": "cinefavorite-turma-app",
+    "storage_bucket": "cinefavorite-turma-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191096450435:android:bb1b6f12d4ef5721875ab6",
+        "android_client_info": {
+          "package_name": "com.example.cine_favorite"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0hiTCGJCkrCspeh_-MYepBLvZ7sRwkxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

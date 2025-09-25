@@ -33,17 +33,15 @@ class _MyAppState extends State<MyApp> {
     final prefs = await SharedPreferences.getInstance();
     //armazenando em um texto as configurações salvas
     String? jsonString = prefs.getString('config');
-    if (jsonString != null) {
-      //converter o texto/Json em Map/Dart
-      Map<String, dynamic> config = json.decode(jsonString);
-      // chama a mudança de estado
-      setState(() {
-        // atribui a bool o valor da chave TemaEscuro, caso null atribui falso
-        temaEscuro = config["temaEscuro"] ?? false;
-        nomeUsuario = config["nome"] ?? "";
-      });
-    }
-  } // fim do método
+    //converter o texto/Json em Map/Dart
+    Map<String, dynamic> config = json.decode(jsonString);
+    // chama a mudança de estado
+    setState(() {
+      // atribui a bool o valor da chave TemaEscuro, caso null atribui falso
+      temaEscuro = config["temaEscuro"] ?? false;
+      nomeUsuario = config["nome"] ?? "";
+    });
+    } // fim do método
 
   // método build
   @override
