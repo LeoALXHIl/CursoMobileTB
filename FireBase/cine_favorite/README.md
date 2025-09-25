@@ -96,3 +96,20 @@ graph TD
 
 
 ```
+
+3. ### Fluxo
+Determina o caminho percorrido pelo Ator para Executar uma Ação
+
+- Fluxo da Ação de Login
+
+```mermaid
+
+graph TD
+    A[Início] --> B{Login Usuario}
+    B --> C([Inserir Email e Senha])
+    D --> E([Sim])
+    D --> F([Não])
+    E --> G([HomePage])
+    F --> B
+    
+    ````
