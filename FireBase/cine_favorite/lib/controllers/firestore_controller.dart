@@ -1,10 +1,9 @@
 //gerenciar o relacionamento do aplicativo com o FireStore DataBase
 
 import 'dart:io';
-
+import 'package:cine_favorite/models/movie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cine_favorite/models/movie.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
@@ -16,26 +15,30 @@ class FirestoreController {
   User? get currentUser => _auth.currentUser;
 
   //vamos criar um listener => pegar a lista de filmes favoritos
+  //chama a mudança toda vez que alterar um filme da baseDados Favorite_Movie
   Stream<List<Movie>> getFavoriteMovies(){ // lista salva no FireBase 
   //não é a lista da API
+  //se usuário == nul , retorna uma lsiat vazia
     if(currentUser == null) return Stream.value([]);
-
+    //caso contrário
     return _db
-    .collection("usuarios")
+    .collection("users")
     .doc(currentUser!.uid)
     .collection("favorite_movies")
-    .snapshots()
+    .snapshots() //memoria instantanea do aplicativo 
     .map((snapshot)=>
+    // converte cada doc do BD em Obj da classe Movie
       snapshot.docs.map((doc)=>Movie.fromMap(doc.data())).toList());
   }
 
   //adicionar um filme a lista de favoritos
   void addFavoriteMovie(Map<String,dynamic> movieData) async{
     //carregar imagem diretamente do cache do aplicativo 
-    if(movieData["poster_path"] == null) return; // se filme não tiver o poste não armazena
+    if(movieData["poster_path"] == null || currentUser == null) return; // se filme não tiver o poste não armazena
 
     //baixando a imagem do Poster do Filme
     final imagemUrl = "https://image.tmdb.org/t/p/w500${movieData["poster_path"]}";
+    //https://image.tmdb.org/t/p/w500/6vbxUh6LWHGhfuPI7GrimQaXNsQ.jpg
     final responseImg = await http.get(Uri.parse(imagemUrl));
 
     //armazenar a imagem no cache do aplicativo
@@ -44,10 +47,41 @@ class FirestoreController {
     await file.writeAsBytes(responseImg.bodyBytes);
 
     //criar o filme
+    final movie = Movie(
+      id: movieData["id"], 
+      title: movieData["title"], 
+      posterPath: file.path.toString());
 
 
-    //armazenar no firestore
-
+     //armazenar no firestore
+    await _db.collection("users").doc(currentUser!.uid)
+    .collection("favorite_movies").doc(movie.id.toString()).set(movie.toMap());
+    //doc é criado com o id = ao do tmdb
     
+  }
+
+  //remover um filme da lista de favoritos
+  void removeFavoriteMovie(int movieID) async{
+    if(currentUser == null) return; // veriica se o usuario não é nulo
+    await _db.collection("users").doc(currentUser!.uid)
+    .collection("favorite_movies").doc(movieID.toString()).delete();// deleta o doc da base de dados
+    
+    //deletar a imagem do cache do aplicativo
+    final imagemPath = await getApplicationDocumentsDirectory();
+    final imagemFile = File("${imagemPath.path}/$movieID.jpg");
+    try{
+      await imagemFile.delete();
+    }catch(e){
+      // Log error without print in production
+    }
+  }
+ // Update avaliação
+  void updateMovieRating(int movieID, double rating) async{
+    if(currentUser == null) return; 
+    await _db.collection("users").doc(currentUser!.uid)
+    .collection("favorite_movies").doc(movieID.toString()).update({"rating":rating});
+
+   
+
   }
 }

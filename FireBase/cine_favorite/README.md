@@ -120,3 +120,8 @@ Link dos Prototipos
 
 
 ## Codficação
+
+- Service --> Conectar com a API
+- Model --> Favorite Movie
+- Controller --> firestore Data Base - Imcompleto
+- View --> Registro, Login, FavoriteView, SearchView -Imcompleto

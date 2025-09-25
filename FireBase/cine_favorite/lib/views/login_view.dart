@@ -27,9 +27,9 @@ class _LoginViewState extends State<LoginView> {
       //não precisa do Navigator, pois usaremso o StreamBuilder
       // já faz o direcionamento automático para a tela de tarefas
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Falha ao Fazer Login $e")));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Falha ao Fazer Login $e")));
+      }
     }
   }
 

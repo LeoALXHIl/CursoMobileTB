@@ -22,14 +22,18 @@ class _RegistroViewState extends State<RegistroView> {
     if(_senhaField.text != _confSenhaField.text) return;//interrompe o método se senhas diferentes
     try {
       await _authController.createUserWithEmailAndPassword(
-        email: _emailField.text.trim(), 
+        email: _emailField.text.trim(),
         password: _senhaField.text);
-      Navigator.pop(context); //fecha a tela de Registro
+      if (mounted) {
+        Navigator.pop(context); //fecha a tela de Registro
+      }
       // é logado automaticamente após o cadastro
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Falha ao registrar: $e"))
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Falha ao registrar: $e"))
+        );
+      }
     }
   }
 

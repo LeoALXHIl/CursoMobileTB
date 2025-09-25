@@ -6,12 +6,13 @@ import 'package:http/http.dart' as http;
 
 class TmdbController {
   //Colocar os dados da API
+  //static -- atributo da classe não do objeto
   static const String _apiKey = "1fa5c2d59029fd1c438cc35713720604";
   static const String _baseURL = "https://api.themoviedb.org/3";
 
 
   //método para buscar filme com base no texto
-
+  //meyodo static ou seja metodo executado pela classe não pelo objeto
   static Future<List<Map<String,dynamic>>> searchMovies(String query) async{
     //convert String em URL
     final queryUrl = Uri.parse("$_baseURL/search/movie?api_key=$_apiKey&query=$query&language=pt-BR");
@@ -20,7 +21,9 @@ class TmdbController {
     
     //se reposta form ok ==200
     if(response.statusCode == 200){
+      //convert json em string (dart)
       final data = json.decode(response.body);
+      //retorna converte String em list<map><String, dynamic>>
       return List<Map<String,dynamic>>.from(data["results"]);
     }else{
     //caso contrário cria uma exception

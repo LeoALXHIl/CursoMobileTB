@@ -17,29 +17,17 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -52,11 +40,49 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD01HnqThlSYZkZ9_h8QLBu62LoYc7N4uQ',
-    appId: '1:486203124766:android:12ccfca0f2f32a31fdd20f',
-    messagingSenderId: '486203124766',
-    projectId: 'cine-favorite-sesib',
-    storageBucket: 'cine-favorite-sesib.firebasestorage.app',
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAzu335Hh_SnufalivEtz4XY8wAGakZkgk',
+    appId: '1:191096450435:web:33ccd99e12370956875ab6',
+    messagingSenderId: '191096450435',
+    projectId: 'cinefavorite-turma-app',
+    authDomain: 'cinefavorite-turma-app.firebaseapp.com',
+    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
+    measurementId: 'G-8BR9ZTPPVN',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyA0hiTCGJCkrCspeh_-MYepBLvZ7sRwkxg',
+    appId: '1:191096450435:android:bb1b6f12d4ef5721875ab6',
+    messagingSenderId: '191096450435',
+    projectId: 'cinefavorite-turma-app',
+    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCU3cFmJPDuAJ78s2qrpKqjEqFsdRGO-iM',
+    appId: '1:191096450435:ios:f833d40868f9dfce875ab6',
+    messagingSenderId: '191096450435',
+    projectId: 'cinefavorite-turma-app',
+    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
+    iosBundleId: 'com.example.cineFavorite',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCU3cFmJPDuAJ78s2qrpKqjEqFsdRGO-iM',
+    appId: '1:191096450435:ios:f833d40868f9dfce875ab6',
+    messagingSenderId: '191096450435',
+    projectId: 'cinefavorite-turma-app',
+    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
+    iosBundleId: 'com.example.cineFavorite',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyAzu335Hh_SnufalivEtz4XY8wAGakZkgk',
+    appId: '1:191096450435:web:c04028c436811319875ab6',
+    messagingSenderId: '191096450435',
+    projectId: 'cinefavorite-turma-app',
+    authDomain: 'cinefavorite-turma-app.firebaseapp.com',
+    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
+    measurementId: 'G-VZ7EYPTC28',
   );
 }
