@@ -57,3 +57,42 @@ Demosntrar o Funcionamento das Entidades do Sistema
 
         User "1"--"1+" FavoriteMovie: "select"
 ```
+
+2. ### Uso
+Ação que os Atores podem Fazer
+- Usuario (user):
+ - Registar
+ - Login
+ - logout
+ - Procurar Filmes na API
+ - Salvar Filmes aos Favoritos
+ - Dar Nota aos Filmes Favoritos
+ - Remover Filme dos Favoritos
+
+ ```mermaid
+
+graph TD
+    subgraph "Ações"
+        ac1([Registrar])
+        ac2([Login])
+        ac3([Logout])
+        ac4([Search Movie])
+        ac5([AddFavoriteMovie])
+        ac6([UpdateRatingMovie])
+        ac7([RemoveFavotiteMovie])
+     end
+
+     user([Usuario])
+
+        user --> ac1
+        user --> ac2
+
+        ac1 --> ac2
+    ac2 --> ac3
+    ac2 --> ac4
+    ac2 --> ac5
+    ac2 --> ac6
+    ac2 --> ac7
+
+
+```
