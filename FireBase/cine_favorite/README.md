@@ -105,11 +105,12 @@ Determina o caminho percorrido pelo Ator para Executar uma Ação
 ```mermaid
 
 graph TD
-    A[Início] --> B{Login Usuario}
-    B --> C([Inserir Email e Senha])
-    D --> E([Sim])
-    D --> F([Não])
-    E --> G([HomePage])
+    A[Início] --> B{Login Usuário}
+    B --> C[Inserir Email e Senha]
+    C --> D{Validar as Credenciais}
+    D --> E[SIM]
+    D --> F[NÃO]
+    E --> G[HomePage]
     F --> B
-    
-    ````
+
+```
