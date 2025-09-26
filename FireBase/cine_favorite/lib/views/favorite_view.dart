@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:cine_favorite/controllers/firestore_controller.dart';
-import 'package:cine_favorite/models/movie.dart';
-import 'package:cine_favorite/views/search_movie_view.dart';
+import 'package:cine_favorite/models/track.dart';
+import 'package:cine_favorite/views/search_track_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,12 +16,12 @@ class FavoriteView extends StatefulWidget {
 class _FavoriteViewState extends State<FavoriteView> {
   final _firestoreController = FirestoreController();
 
-  void _showRatingDialog(Movie movie) {
-    double tempRating = movie.rating;
+  void _showRatingDialog(Track track) {
+    double tempRating = track.rating;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Avaliar ${movie.title}"),
+        title: Text("Avaliar ${track.name}"),
         content: StatefulBuilder(
           builder: (context, setState) => Column(
             mainAxisSize: MainAxisSize.min,
@@ -48,7 +48,7 @@ class _FavoriteViewState extends State<FavoriteView> {
           ),
           TextButton(
             onPressed: () {
-              _firestoreController.updateMovieRating(movie.id, tempRating);
+              _firestoreController.updateTrackRating(track.id, tempRating);
               Navigator.pop(context);
             },
             child: Text("Salvar"),
@@ -62,27 +62,27 @@ class _FavoriteViewState extends State<FavoriteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Filmes Favoritos"),
+        title: Text("Músicas Favoritas"),
         actions: [
           IconButton(
-            onPressed: FirebaseAuth.instance.signOut, 
+            onPressed: FirebaseAuth.instance.signOut,
             icon: Icon(Icons.logout))
         ],
       ),
-      // criar um gridView com os filmes favoritos
-      body: StreamBuilder<List<Movie>>(
-        stream: _firestoreController.getFavoriteMovies(), 
+      // criar um gridView com as músicas favoritas
+      body: StreamBuilder<List<Track>>(
+        stream: _firestoreController.getFavoriteTracks(),
         builder: (context, snapshot){
           if(snapshot.hasError){
-            return Center(child: Text("Erro ao carregar Lista de Filmes"),);
+            return Center(child: Text("Erro ao carregar Lista de Músicas"),);
           }
           if(!snapshot.hasData){
             return Center(child:CircularProgressIndicator());
           }
           if(snapshot.data!.isEmpty){
-            return Center(child: Text("Nenhum Filme adicionado ao Favoritos"),);
+            return Center(child: Text("Nenhuma Música adicionada aos Favoritos"),);
           }
-          final favoriteMovies = snapshot.data!;
+          final favoriteTracks = snapshot.data!;
           return GridView.builder(
             padding: EdgeInsets.all(8),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -90,12 +90,12 @@ class _FavoriteViewState extends State<FavoriteView> {
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
               childAspectRatio: 0.7),
-              itemCount: favoriteMovies.length,
+              itemCount: favoriteTracks.length,
               itemBuilder:  (context, index){
-              final movie = favoriteMovies[index];
+              final track = favoriteTracks[index];
               return Card(
                 child: InkWell(
-                  onTap: () => _showRatingDialog(movie),
+                  onTap: () => _showRatingDialog(track),
                   child: Stack(
                     children: [
                       Column(
@@ -103,17 +103,21 @@ class _FavoriteViewState extends State<FavoriteView> {
                         children: [
                           Expanded(
                             child: Image.file(
-                              File(movie.posterPath),
+                              File(track.imagePath),
                               fit: BoxFit.cover,
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
-                            child: Text(movie.title),
+                            child: Text(track.name),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 8),
-                            child: Text("Nota: ${movie.rating == 0 ? 'Não avaliado' : movie.rating.toStringAsFixed(1)}"),
+                            child: Text("Artistas: ${track.artists}"),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: Text("Nota: ${track.rating == 0 ? 'Não avaliado' : track.rating.toStringAsFixed(1)}"),
                           ),
                         ],
                       ),
@@ -121,8 +125,8 @@ class _FavoriteViewState extends State<FavoriteView> {
                         top: 4,
                         right: 4,
                         child: IconButton(
-                          icon: Icon(Icons.delete, color: Colors.transparent),
-                          onPressed: () => _firestoreController.removeFavoriteMovie(movie.id),
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () => _firestoreController.removeFavoriteTrack(track.id),
                         ),
                       ),
                     ],
@@ -132,8 +136,8 @@ class _FavoriteViewState extends State<FavoriteView> {
             });
         }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(context, 
-          MaterialPageRoute(builder: (context) => SearchMovieView()))),
+        onPressed: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => SearchTrackView()))),
     );
   }
 }
