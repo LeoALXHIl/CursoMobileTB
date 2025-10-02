@@ -41,48 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAzu335Hh_SnufalivEtz4XY8wAGakZkgk',
-    appId: '1:191096450435:web:33ccd99e12370956875ab6',
-    messagingSenderId: '191096450435',
-    projectId: 'cinefavorite-turma-app',
-    authDomain: 'cinefavorite-turma-app.firebaseapp.com',
-    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
-    measurementId: 'G-8BR9ZTPPVN',
+    apiKey: 'AIzaSyDsRdF3KD9YP5ErdfX1SIt0vxUb9DK3BCg',
+    appId: '1:397331530707:web:506c795478a9e78d306526',
+    messagingSenderId: '397331530707',
+    projectId: 'apimusic-528b7',
+    authDomain: 'apimusic-528b7.firebaseapp.com',
+    storageBucket: 'apimusic-528b7.firebasestorage.app',
+    measurementId: 'G-PX5VL51PNJ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA0hiTCGJCkrCspeh_-MYepBLvZ7sRwkxg',
-    appId: '1:191096450435:android:bb1b6f12d4ef5721875ab6',
-    messagingSenderId: '191096450435',
-    projectId: 'cinefavorite-turma-app',
-    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
+    apiKey: 'AIzaSyA7raAezcN4m3kKunVCbBHYGzY1zy-WX0M',
+    appId: '1:397331530707:android:9af53cf6113313f1306526',
+    messagingSenderId: '397331530707',
+    projectId: 'apimusic-528b7',
+    storageBucket: 'apimusic-528b7.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCU3cFmJPDuAJ78s2qrpKqjEqFsdRGO-iM',
-    appId: '1:191096450435:ios:f833d40868f9dfce875ab6',
-    messagingSenderId: '191096450435',
-    projectId: 'cinefavorite-turma-app',
-    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
+    apiKey: 'AIzaSyBMH3bplhgB2rTrb0esqHJTziZXbLn5DW0',
+    appId: '1:397331530707:ios:5f995e866fda44f6306526',
+    messagingSenderId: '397331530707',
+    projectId: 'apimusic-528b7',
+    storageBucket: 'apimusic-528b7.firebasestorage.app',
     iosBundleId: 'com.example.cineFavorite',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCU3cFmJPDuAJ78s2qrpKqjEqFsdRGO-iM',
-    appId: '1:191096450435:ios:f833d40868f9dfce875ab6',
-    messagingSenderId: '191096450435',
-    projectId: 'cinefavorite-turma-app',
-    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
+    apiKey: 'AIzaSyBMH3bplhgB2rTrb0esqHJTziZXbLn5DW0',
+    appId: '1:397331530707:ios:5f995e866fda44f6306526',
+    messagingSenderId: '397331530707',
+    projectId: 'apimusic-528b7',
+    storageBucket: 'apimusic-528b7.firebasestorage.app',
     iosBundleId: 'com.example.cineFavorite',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAzu335Hh_SnufalivEtz4XY8wAGakZkgk',
-    appId: '1:191096450435:web:c04028c436811319875ab6',
-    messagingSenderId: '191096450435',
-    projectId: 'cinefavorite-turma-app',
-    authDomain: 'cinefavorite-turma-app.firebaseapp.com',
-    storageBucket: 'cinefavorite-turma-app.firebasestorage.app',
-    measurementId: 'G-VZ7EYPTC28',
+    apiKey: 'AIzaSyDsRdF3KD9YP5ErdfX1SIt0vxUb9DK3BCg',
+    appId: '1:397331530707:web:b11f7a47e40e8226306526',
+    messagingSenderId: '397331530707',
+    projectId: 'apimusic-528b7',
+    authDomain: 'apimusic-528b7.firebaseapp.com',
+    storageBucket: 'apimusic-528b7.firebasestorage.app',
+    measurementId: 'G-GSCHZXWE7B',
   );
+
 }
