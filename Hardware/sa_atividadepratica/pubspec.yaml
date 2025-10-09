@@ -1,4 +1,4 @@
-name: sa_localizacao_mapa
+name: sa_atividadepratica
 description: "A new Flutter project."
 publish_to: 'none'
 version: 0.1.0
@@ -9,10 +9,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_map: ^8.2.2
-  latlong2: ^0.9.1
-  geolocator: ^14.0.2
-  intl: ^0.20.2
+  image_picker: ^1.2.0
+  geolocator: ^12.0.0
+  geocoding: ^3.0.0
+  path_provider: ^2.1.3
+  sqflite: ^2.3.3+1
+  permission_handler: ^11.3.1
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
