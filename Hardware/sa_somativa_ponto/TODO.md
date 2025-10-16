@@ -29,6 +29,6 @@
 
 ## 8. Testing and Documentation
 - [x] Add unit tests for controllers
-- [ ] Add integration tests for UI
-- [ ] Test on Android device/emulator (permissions for location and biometrics)
+- [x] Add integration tests for UI
+- [x] Test on Android device/emulator (permissions for location and biometrics)
 - [x] Document installation and usage

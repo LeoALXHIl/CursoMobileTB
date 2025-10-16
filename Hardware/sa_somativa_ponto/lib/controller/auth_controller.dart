@@ -1,33 +1,46 @@
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import '../model/user.dart' as model;
 
 class AuthController with ChangeNotifier {
   final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  // Sign in with Google
-  Future<auth.UserCredential?> signInWithGoogle() async {
+  // Sign in with NIF and password
+  Future<auth.UserCredential?> signInWithNifAndPassword(String nif, String password) async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return null;
+      // Create email from NIF for Firebase Auth (since Firebase requires email format)
+      String email = '$nif@company.com';
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final auth.AuthCredential credential = auth.GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
+      auth.UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
       );
 
-      auth.UserCredential userCredential = await _auth.signInWithCredential(credential);
+      notifyListeners();
+      return userCredential;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Register with NIF and password
+  Future<auth.UserCredential?> registerWithNifAndPassword(String nif, String password, {String? name}) async {
+    try {
+      // Create email from NIF for Firebase Auth
+      String email = '$nif@company.com';
+
+      auth.UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
       // Save user data to Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'nif': googleUser.email, // Use email as NIF
-        'email': googleUser.email,
-        'name': googleUser.displayName,
+        'nif': nif,
+        'email': email,
+        'name': name,
       });
 
       notifyListeners();
@@ -45,7 +58,6 @@ class AuthController with ChangeNotifier {
   // Sign out
   Future<void> signOut() async {
     await _auth.signOut();
-    await _googleSignIn.signOut();
     notifyListeners();
   }
 
@@ -56,5 +68,16 @@ class AuthController with ChangeNotifier {
       return model.User.fromJson(doc.data() as Map<String, dynamic>);
     }
     return null;
+  }
+
+  // Check if user exists by NIF
+  Future<bool> userExists(String nif) async {
+    try {
+      String email = '$nif@company.com';
+      var methods = await _auth.fetchSignInMethodsForEmail(email);
+      return methods.isNotEmpty;
+    } catch (e) {
+      return false;
+    }
   }
 }

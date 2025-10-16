@@ -15,8 +15,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final AuthController _authController = AuthController();
   final BiometricController _biometricController = BiometricController();
+  final TextEditingController _nifController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   String _errorMessage = '';
   bool _useBiometrics = false;
+  bool _isLogin = true; // true for login, false for register
 
   @override
   void initState() {
@@ -36,7 +39,14 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> _signInWithGoogle() async {
+  Future<void> _authenticate() async {
+    if (_nifController.text.isEmpty || _passwordController.text.isEmpty) {
+      setState(() {
+        _errorMessage = 'Por favor, preencha todos os campos';
+      });
+      return;
+    }
+
     try {
       if (_useBiometrics) {
         bool authenticated = await _biometricController.authenticateWithBiometrics();
@@ -48,7 +58,17 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }
 
-      await _authController.signInWithGoogle();
+      if (_isLogin) {
+        await _authController.signInWithNifAndPassword(
+          _nifController.text,
+          _passwordController.text,
+        );
+      } else {
+        await _authController.registerWithNifAndPassword(
+          _nifController.text,
+          _passwordController.text,
+        );
+      }
 
       // Navigate to home screen
       Navigator.of(context).pushReplacement(
@@ -56,7 +76,9 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } catch (e) {
       setState(() {
-        _errorMessage = e.toString();
+        _errorMessage = _isLogin
+            ? 'Erro no login. Verifique suas credenciais.'
+            : 'Erro no registro. Tente novamente.';
       });
     }
   }
@@ -65,17 +87,37 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Entrar'),
+        title: Text(_isLogin ? 'Entrar' : 'Registrar'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Sign in with Google to access the Employee Check-In App',
+            Text(
+              _isLogin
+                  ? 'Entre com seu NIF e senha'
+                  : 'Registre-se com seu NIF e senha',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: _nifController,
+              decoration: const InputDecoration(
+                labelText: 'NIF',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _passwordController,
+              decoration: const InputDecoration(
+                labelText: 'Senha',
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
             ),
             const SizedBox(height: 20),
             if (_useBiometrics)
@@ -89,17 +131,28 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                     },
                   ),
-                  const Text('Use Biometrics'),
+                  const Text('Usar Biometria'),
                 ],
               ),
             const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: _signInWithGoogle,
-              icon: const Icon(Icons.login),
-              label: const Text('Entrar com o Google'),
+            ElevatedButton(
+              onPressed: _authenticate,
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
+              child: Text(_isLogin ? 'Entrar' : 'Registrar'),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _isLogin = !_isLogin;
+                  _errorMessage = '';
+                });
+              },
+              child: Text(_isLogin
+                  ? 'Não tem conta? Registre-se'
+                  : 'Já tem conta? Faça login'),
             ),
             if (_errorMessage.isNotEmpty)
               Padding(
@@ -114,5 +167,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _nifController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

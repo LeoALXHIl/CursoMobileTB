@@ -26,7 +26,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Check-In History'),
+        title: const Text('Histórico de Check-In'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed('/');
+            },
+            tooltip: 'Página Inicial',
+          ),
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _firestore
@@ -48,7 +57,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           }).toList();
 
           if (checkIns.isEmpty) {
-            return const Center(child: Text('No check-ins found'));
+            return const Center(child: Text('Nenhum check-in encontrado'));
           }
 
           return ListView.builder(
@@ -56,10 +65,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
             itemBuilder: (context, index) {
               CheckIn checkIn = checkIns[index];
               return ListTile(
-                title: Text('Check-In at ${checkIn.timestamp.toLocal()}'),
+                title: Text('Check-In em ${checkIn.timestamp.toLocal()}'),
                 subtitle: Text(
-                  'Location: ${checkIn.latitude.toStringAsFixed(4)}, ${checkIn.longitude.toStringAsFixed(4)}\n'
-                  'Valid: ${checkIn.isValid ? 'Yes' : 'No'}',
+                  'Localização: ${checkIn.latitude.toStringAsFixed(4)}, ${checkIn.longitude.toStringAsFixed(4)}\n'
+                  'Válido: ${checkIn.isValid ? 'Sim' : 'Não'}',
                 ),
                 leading: Icon(
                   checkIn.isValid ? Icons.check_circle : Icons.error,

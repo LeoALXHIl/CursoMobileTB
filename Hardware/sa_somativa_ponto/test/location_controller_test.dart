@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:sa_somativa_ponto/controller/location_controller.dart';
 
 void main() {
@@ -11,8 +10,8 @@ void main() {
     });
 
     test('calculateDistance should return correct distance', () {
-      // Test with known coordinates
-      double distance = locationController.calculateDistance(-23.5505, -46.6333);
+      // Test with coordinates slightly different from workplace
+      double distance = locationController.calculateDistance(-23.5605, -46.6433);
       expect(distance, greaterThan(0));
     });
 

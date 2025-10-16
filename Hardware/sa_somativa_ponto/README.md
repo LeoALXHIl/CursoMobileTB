@@ -60,6 +60,13 @@ Run unit tests:
 flutter test
 ```
 
+Run integration tests:
+```
+flutter test integration_test/
+```
+
+Note: Integration tests may require mocking Firebase and location services for full functionality.
+
 ## Dependencies
 
 - `firebase_core`: Firebase core functionality.

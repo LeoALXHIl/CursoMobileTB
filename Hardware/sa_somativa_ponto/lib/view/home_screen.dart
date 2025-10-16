@@ -21,19 +21,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Position? _currentPosition;
   bool _isLoading = false;
-  String _statusMessage = 'Press the button to check in';
+  String _statusMessage = 'Pressione o botão para fazer check-in';
 
   Future<void> _checkIn() async {
     setState(() {
       _isLoading = true;
-      _statusMessage = 'Getting location...';
+      _statusMessage = 'Obtendo localização...';
     });
 
     try {
       Position? position = await _locationController.getCurrentPosition();
       if (position == null) {
         setState(() {
-          _statusMessage = 'Location permission denied or unavailable';
+          _statusMessage = 'Permissão de localização negada ou indisponível';
           _isLoading = false;
         });
         return;
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       setState(() {
         _currentPosition = position;
-        _statusMessage = 'Checking distance to workplace...';
+        _statusMessage = 'Verificando distância do local de trabalho...';
       });
 
       bool isWithinWorkplace = _locationController.isWithinWorkplace(
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       if (!isWithinWorkplace) {
         setState(() {
-          _statusMessage = 'You are not within 100m of the workplace';
+          _statusMessage = 'Você não está dentro de 100m do local de trabalho';
           _isLoading = false;
         });
         return;
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
         await _firestore.collection('checkins').doc(checkInId).set(checkIn.toJson());
 
         setState(() {
-          _statusMessage = 'Check-in successful!';
+          _statusMessage = 'Check-in realizado com sucesso!';
           _isLoading = false;
         });
       }
@@ -100,15 +100,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Employee Check-In'),
+        title: const Text('Check-In de Funcionário'),
         actions: [
           IconButton(
             icon: const Icon(Icons.history),
             onPressed: _navigateToHistory,
+            tooltip: 'Histórico',
           ),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: _signOut,
+            tooltip: 'Sair',
           ),
         ],
       ),
@@ -125,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 20),
             if (_currentPosition != null)
               Text(
-                'Current Location: ${_currentPosition!.latitude.toStringAsFixed(4)}, ${_currentPosition!.longitude.toStringAsFixed(4)}',
+                'Localização Atual: ${_currentPosition!.latitude.toStringAsFixed(4)}, ${_currentPosition!.longitude.toStringAsFixed(4)}',
                 textAlign: TextAlign.center,
               ),
             const SizedBox(height: 40),
@@ -133,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _isLoading ? null : _checkIn,
               child: _isLoading
                   ? const CircularProgressIndicator()
-                  : const Text('Check In'),
+                  : const Text('Fazer Check-In'),
             ),
           ],
         ),
