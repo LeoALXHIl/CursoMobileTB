@@ -25,9 +25,9 @@ class BiometricController {
   Future<bool> authenticateWithBiometrics() async {
     try {
       bool authenticated = await _localAuth.authenticate(
-        localizedReason: 'Please authenticate to check in',
+        localizedReason: 'Please authenticate to access the app',
         options: const AuthenticationOptions(
-          biometricOnly: true,
+          biometricOnly: false,
           useErrorDialogs: true,
           stickyAuth: true,
         ),

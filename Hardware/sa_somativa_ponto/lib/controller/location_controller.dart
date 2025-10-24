@@ -1,9 +1,9 @@
 import 'package:geolocator/geolocator.dart';
 
 class LocationController {
-  // Workplace coordinates (hardcoded for now, e.g., São Paulo, Brazil)
-  static const double workplaceLatitude = -23.5505;
-  static const double workplaceLongitude = -46.6333;
+  // Workplace coordinates (SENAI Luis Varga, Limeira, SP)
+  static const double workplaceLatitude = -22.571;
+  static const double workplaceLongitude = -47.404;
 
   // Request location permission
   Future<bool> requestPermission() async {
@@ -29,6 +29,7 @@ class LocationController {
       }
       return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
+        timeLimit: const Duration(seconds: 10), // Add timeout to prevent infinite waiting
       );
     } catch (e) {
       return null;

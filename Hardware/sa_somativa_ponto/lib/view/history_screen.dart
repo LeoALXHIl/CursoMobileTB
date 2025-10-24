@@ -41,7 +41,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
         stream: _firestore
             .collection('checkins')
             .where('userId', isEqualTo: user.uid)
-            .orderBy('timestamp', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -52,9 +51,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          List<CheckIn> checkIns = snapshot.data!.docs.map((doc) {
-            return CheckIn.fromJson(doc.data() as Map<String, dynamic>);
-          }).toList();
+          List<CheckIn> checkIns = snapshot.data!.docs
+              .map((doc) => CheckIn.fromJson(doc.data() as Map<String, dynamic>))
+              .toList()
+              ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
           if (checkIns.isEmpty) {
             return const Center(child: Text('Nenhum check-in encontrado'));
